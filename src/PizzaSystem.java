@@ -107,30 +107,173 @@ public class PizzaSystem {
 
     }
     void editController(){
-        System.out.println("Редактировать пиццу - 1\nРедактировать основу - 2\nРедактировать ингредиент - 3\n");
-        command = scanner.nextInt();
-        switch (command){
-            case 1:
-            case 2:
-            case 3:
-            default:
-                System.out.println("Некорректный ввод");
+        boolean stop = false;
+        String name;
+        int price;
+        while (true){
+            System.out.println("Редактировать пиццу - 1\nРедактировать основу - 2\nРедактировать ингредиент - 3\n");
+            scanner.nextLine();
+            command = scanner.nextInt();
+            switch (command){
+                case 1:
+                    System.out.println("Введите номер пиццы");
+                    scanner.nextLine();
+                    showPizzas();
+                    command = scanner.nextInt();
+                    while (true){
+                        if(command <0 || command>pizzas.size()){
+                            System.out.println("Некорректный ввод");
+                            scanner.nextLine();
+                        }
+                        else{
+                            System.out.println("Изменить имя - 0\nИзменить основу - 1\nИзменить ингедиенты");
+                            break;
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("Введите номер основы");
+                    scanner.nextLine();
+                    showBases();
+                    command = scanner.nextInt();
+                    while (true){
+                        if(command <0 || command>bases.size()-1){
+                            System.out.println("Некорректный ввод");
+                            scanner.nextLine();
+                        }
+                        else{
+                            while (true){
+                                System.out.println("Для изменения названия - 0\nДля изменения цены - 1\n");
+                                scanner.nextLine();
+                                command = scanner.nextInt();
+                                if(command == 0){
+                                    System.out.println("Введите новое название:");
+                                    scanner.nextLine();
+                                    name = scanner.nextLine();
+                                    scanner.nextLine();
+                                    bases.get(command).setName(name);
+                                    break;
+                                }
+                                else if(command == 1){
+                                    System.out.println("Введите новую цену:");
+                                    scanner.nextLine();
+                                    price = scanner.nextInt();
+                                    scanner.nextLine();
+                                    bases.get(command).setPrice(price);
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Некорректный ввод");
+                                    scanner.nextLine();
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("Введите номер ингредиента");
+                    scanner.nextLine();
+                    showIngredients();
+                    command = scanner.nextInt();
+                    while (true){
+                        if(command <0 || command>ingredients.size()-1){
+                            System.out.println("Некорректный ввод");
+                            scanner.nextLine();
+                        }
+                        else{
+                            while (true){
+                                System.out.println("Для изменения названия - 0\nДля изменения цены - 1\n");
+                                scanner.nextLine();
+                                command = scanner.nextInt();
+                                if(command == 0){
+                                    System.out.println("Введите новое название:");
+                                    scanner.nextLine();
+                                    name = scanner.nextLine();
+                                    scanner.nextLine();
+                                    ingredients.get(command).setName(name);
+                                    break;
+                                }
+                                else if(command == 1){
+                                    System.out.println("Введите новую цену:");
+                                    scanner.nextLine();
+                                    price = scanner.nextInt();
+                                    scanner.nextLine();
+                                    ingredients.get(command).setPrice(price);
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Некорректный ввод");
+                                    scanner.nextLine();
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    stop = true;
+            }
+            if(stop){
+                break;
+            }
         }
     }
     void deleteController(){
+        boolean stop = false;
         System.out.println("Удалить пиццу - 1\nУдалить основу - 2\nУдалить ингредиент - 3\n");
         command = scanner.nextInt();
-        switch (command){
-            case 1:
+        while(true){
+            switch (command){
+                case 1:
+                    System.out.println("Введи номер пиццы");
+                    showPizzas();
+                    command = scanner.nextInt();
+                    while (true){
+                        if(command <0 || command>pizzas.size()){
+                            System.out.println("Некорректный ввод");
+                        }
+                        else{
+                            pizzas.remove(command);
+                            break;
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("Введи номер основы");
+                    showBases();
+                    command = scanner.nextInt();
+                    while (true){
+                        if(command <0 || command>bases.size()){
+                            System.out.println("Некорректный ввод");
+                        }
+                        else{
+                            bases.remove(command);
+                            break;
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("Введи номер ингредиента");
+                    showIngredients();
+                    command = scanner.nextInt();
+                    while (true){
+                        if(command <0 || command>ingredients.size()){
+                            System.out.println("Некорректный ввод");
+                        }
+                        else{
+                            ingredients.remove(command);
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Некорректный ввод");
+                    stop = true;
+            }
+            if(stop){
                 break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            default:
-                System.out.println("Некорректный ввод");
+            }
         }
     }
     void showController(){
