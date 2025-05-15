@@ -32,40 +32,79 @@ public class PizzaSystem {
         }
     }
     void createController(){
-        System.out.println("Создать пиццу - 1\nСоздать основу - 2\nСоздать ингредиент - 3\n");
-        command = scanner.nextInt();
         String name;
         int price;
         int chosenBase;
-        switch (command){
-            case 1:
-                System.out.println("Имя пиццы");
-                scanner.nextLine();
-                name = scanner.nextLine();
-                System.out.println("Выбери основу");
-                showBases();
+        boolean stop = false;
+        Base baseForPizza;
+        ArrayList<Ingredient> ingredientsForPizza = new ArrayList<Ingredient>();
+        while(true){
+            countPizzasPrice();
+            System.out.println("Создать пиццу - 1\nСоздать основу - 2\nСоздать ингредиент - 3\nЧтобы вернуться нажмите любое число\n");
+            command = scanner.nextInt();
+            switch (command){
+                case 1:
+                    System.out.println("Имя пиццы");
+                    scanner.nextLine();
+                    name = scanner.nextLine();
+                    while(true){
+                        System.out.println("Выбери основу");
+                        showBases();
+                        command = scanner.nextInt();
+                        if(command < 0 || command > bases.size()-1){
+                            System.out.println("Некорректный ввод");
+                        }
+                        else {
+                            baseForPizza = bases.get(command);
+                            break;
+                        }
+                    }
+                    while(true){
+                        System.out.println("Выбери ингредиенты");
+                        System.out.println("Для завершения введи -1");
+                        showIngredients();
+                        command = scanner.nextInt();
+                        if(command == -1){
+                            break;
+                        }
+                        else{
+                            if(command < 0 || command > ingredients.size()-1){
+                                System.out.println("Некорректный ввод");
+                            }
+                            else {
+                                ingredientsForPizza.add(ingredients.get(command));
+                            }
+                        }
+                    }
+                    pizzas.add(new Pizza(name,0,baseForPizza,ingredientsForPizza));
+                    break;
+                case 2:
+                    System.out.println("Имя основы");
+                    scanner.nextLine();
+                    name = scanner.nextLine();
+                    System.out.println("Цена");
+                    price = scanner.nextInt();
+                    scanner.nextLine();
+                    bases.add(new Base(name,price));
+                    break;
+                case 3:
+                    System.out.println("Имя ингедиента");
+                    scanner.nextLine();
+                    name = scanner.nextLine();
+                    System.out.println("Цена");
+                    price = scanner.nextInt();
+                    scanner.nextLine();
+                    ingredients.add(new Ingredient(name,price));
+                    break;
+                default:
+                    stop = true;
+                    break;
+            }
+            if(stop){
                 break;
-            case 2:
-                System.out.println("Имя основы");
-                scanner.nextLine();
-                name = scanner.nextLine();
-                System.out.println("Цена");
-                price = scanner.nextInt();
-                scanner.nextLine();
-                bases.add(new Base(name,price));
-                break;
-            case 3:
-                System.out.println("Имя ингедиента");
-                scanner.nextLine();
-                name = scanner.nextLine();
-                System.out.println("Цена");
-                price = scanner.nextInt();
-                scanner.nextLine();
-                ingredients.add(new Ingredient(name,price));
-                break;
-            default:
-                System.out.println("Некорректный ввод");
+            }
         }
+
     }
     void editController(){
         System.out.println("Редактировать пиццу - 1\nРедактировать основу - 2\nРедактировать ингредиент - 3\n");
@@ -83,7 +122,6 @@ public class PizzaSystem {
         command = scanner.nextInt();
         switch (command){
             case 1:
-
                 break;
             case 2:
 
@@ -130,5 +168,17 @@ public class PizzaSystem {
 
     String printElementNameAndPrice(Component component){
         return component.getName() + " - " + component.getPrice();
+    }
+
+    void countPizzasPrice(){
+        int price;
+        for(Pizza pizza: pizzas){
+            price = 0;
+            for(Ingredient ingredient : pizza.ingredients){
+                price+=ingredient.getPrice();
+            }
+            price+=pizza.base.getPrice();
+            pizza.setPrice(price);
+        }
     }
 }

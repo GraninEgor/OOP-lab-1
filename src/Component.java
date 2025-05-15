@@ -14,8 +14,8 @@ public abstract class Component {
         this.name = name;
     }
 
-    public void setPrice(String name){
-        this.name = name;
+    public void setPrice(int price){
+        this.price = price;
     }
 
     public Component(String name, int price){
