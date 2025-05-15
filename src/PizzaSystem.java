@@ -11,6 +11,7 @@ public class PizzaSystem {
 
     void start(){
         while(true){
+            countPizzasPrice();
             System.out.println("Создать - 1\nРедактировать - 2\nУдалить -3\nВывести - 4");
             command = scanner.nextInt();
             switch (command){
@@ -39,7 +40,6 @@ public class PizzaSystem {
         Base baseForPizza;
         ArrayList<Ingredient> ingredientsForPizza = new ArrayList<Ingredient>();
         while(true){
-            countPizzasPrice();
             System.out.println("Создать пиццу - 1\nСоздать основу - 2\nСоздать ингредиент - 3\nЧтобы вернуться нажмите любое число\n");
             command = scanner.nextInt();
             switch (command){
@@ -113,13 +113,11 @@ public class PizzaSystem {
         int pizzaId;
         while (true){
             System.out.println("Редактировать пиццу - 1\nРедактировать основу - 2\nРедактировать ингредиент - 3\n");
-            scanner.nextLine();
             command = scanner.nextInt();
             switch (command){
                 case 1:
                     while (true){
                         System.out.println("Введите номер пиццы");
-                        scanner.nextLine();
                         showPizzas();
                         command = scanner.nextInt();
                         if(command <0 || command>pizzas.size()){
@@ -133,8 +131,8 @@ public class PizzaSystem {
                             switch (command){
                                 case 0:
                                     System.out.println("Введи новое название:");
-                                    name = scanner.nextLine();
                                     scanner.nextLine();
+                                    name = scanner.nextLine();
                                     pizzas.get(pizzaId).setName(name);
                                     break;
                                 case 1:
@@ -196,10 +194,11 @@ public class PizzaSystem {
                                             }
                                         }
                                     }
-                                break;
+                                    break;
                                 default:
                                     stop = true;
                             }
+                            break;
                         }
                         if(stop){
                             break;
@@ -287,6 +286,7 @@ public class PizzaSystem {
                     }
                     break;
                 default:
+                    System.out.println("Выход");
                     stop = true;
             }
             if(stop){
