@@ -1,7 +1,10 @@
-public interface Manager {
+import java.util.ArrayList;
 
-    public void create();
-    public void update();
-    public void delete();
-    public void print();
+public interface Manager<T> {
+
+    void create();
+    void update();
+    void delete();
+    void print();
+    void storageAdd(Ingredient ingredient);
 }
