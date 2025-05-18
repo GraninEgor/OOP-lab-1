@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BaseManager implements Manager{
+public class BaseManager extends Manager{
     private final ArrayList<Base> bases = new ArrayList<Base>();
 
     @Override

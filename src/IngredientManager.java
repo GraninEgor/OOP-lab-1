@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class IngredientManager implements Manager {
+public class IngredientManager extends Manager {
     private final ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     @Override

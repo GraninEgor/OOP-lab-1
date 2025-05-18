@@ -32,7 +32,7 @@ public class PizzaSystem {
             }
         }
     }
-    void createController(){
+    void create(){
         String name;
         int price;
         int chosenBase;
@@ -106,7 +106,7 @@ public class PizzaSystem {
         }
 
     }
-    void editController(){
+    void edit(){
         boolean stop = false;
         String name;
         int price;
@@ -294,7 +294,7 @@ public class PizzaSystem {
             }
         }
     }
-    void deleteController(){
+    void delete(){
         boolean stop = false;
         System.out.println("Удалить пиццу - 1\nУдалить основу - 2\nУдалить ингредиент - 3\n");
         command = scanner.nextInt();
@@ -318,7 +318,7 @@ public class PizzaSystem {
             }
         }
     }
-    void showController(){
+    void show(){
         System.out.println("Пиццу - 1\nОснову - 2\nИнгредиент - 3\n");
         command = scanner.nextInt();
         switch (command){
@@ -411,4 +411,20 @@ public class PizzaSystem {
             }
         }
     }
+
+    void createController(int command){
+
+    }
+    void editController(int command){
+
+    }
+    void deleteController(int command){
+
+    }
+    void showController(int command){
+
+    }
+
 }
+
+
