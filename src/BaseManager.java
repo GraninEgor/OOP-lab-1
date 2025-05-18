@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BaseManager implements Manager{
+public class BaseManager implements Manager<Base>{
     private final ArrayList<Base> bases = new ArrayList<Base>();
 
     @Override
@@ -19,4 +19,10 @@ public class BaseManager implements Manager{
     public void print(){
 
     }
+
+    @Override
+    public void storageAdd(Base component) {
+
+    }
+
 }

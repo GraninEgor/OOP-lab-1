@@ -6,5 +6,5 @@ public interface Manager<T> {
     void update();
     void delete();
     void print();
-    void storageAdd(Ingredient ingredient);
+    void storageAdd(T component);
 }

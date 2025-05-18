@@ -457,13 +457,13 @@ public class PizzaSystem {
         selectedItemCommand = scanner.nextInt();
         switch (selectedItemCommand){
             case 1:
-                manager = new PizzaManager();
+                manager = pizzaManager;
                 break;
             case 2:
-                manager = new BaseManager();
+                manager = baseManager;
                 break;
             case 3:
-                manager = new IngredientManager();
+                manager = ingredientManager;
                 break;
             default:
                 break;
