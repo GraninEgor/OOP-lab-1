@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class PizzaManager extends Manager {
+public class PizzaManager implements Manager {
     private final ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
 
     @Override

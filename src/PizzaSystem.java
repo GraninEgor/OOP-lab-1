@@ -3,11 +3,15 @@ import java.util.Scanner;
 
 public class PizzaSystem {
     Scanner scanner = new Scanner(System.in);
-
     private ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
     private ArrayList<Base> bases = new ArrayList<Base>();
     private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
     int command;
+    Controller controller = new Controller();
+    Manager pizzaManager = new PizzaManager();
+    Manager baseManager = new BaseManager();
+    Manager ingredientManager = new IngredientManager();
+    Manager selectedManager;
 
     void start(){
         while(true){
@@ -16,16 +20,28 @@ public class PizzaSystem {
             command = scanner.nextInt();
             switch (command){
                 case 1:
-                    createController();
+                    selectedManager = selectManager();
+                    if(selectedManager!=null){
+                        controller.create(selectedManager);
+                    }
                     break;
                 case 2:
-                    editController();
+                    selectedManager = selectManager();
+                    if(selectedManager!=null) {
+                        controller.update(selectedManager);
+                    }
                     break;
                 case 3:
-                    deleteController();
+                    selectedManager = selectManager();
+                    if(selectedManager!=null) {
+                        controller.delete(selectedManager);
+                    }
                     break;
                 case 4:
-                    showController();
+                    selectedManager = selectManager();
+                    if(selectedManager!=null) {
+                        controller.show(selectedManager);
+                    }
                     break;
                 default:
                     System.out.println("Некорректный ввод");
@@ -412,19 +428,48 @@ public class PizzaSystem {
         }
     }
 
-    void createController(int command){
+    void createController(){
+        command = scanner.nextInt();
+        boolean createDialog = true;
+        while (createDialog){
+            System.out.println("Создать пиццу - 1\nСоздать основу - 2\nСоздать ингредиент - 3\nЧтобы вернуться нажмите любое число\n");
+            command = scanner.nextInt();
+            switch (command){
+                case  1:
+
+            }
+        }
+    }
+    void editController(){
 
     }
-    void editController(int command){
+    void deleteController(){
 
     }
-    void deleteController(int command){
-
-    }
-    void showController(int command){
+    void showController(){
 
     }
 
+    Manager selectManager(){
+        Manager manager = null;
+        int selectedItemCommand;
+        System.out.println("Пиццу - 1\nОснову - 2\nИнгредиент - 3\nЧтобы вернутся нажмите 0");
+        selectedItemCommand = scanner.nextInt();
+        switch (selectedItemCommand){
+            case 1:
+                manager = new PizzaManager();
+                break;
+            case 2:
+                manager = new BaseManager();
+                break;
+            case 3:
+                manager = new IngredientManager();
+                break;
+            default:
+                break;
+        }
+        return manager;
+    }
 }
 
 

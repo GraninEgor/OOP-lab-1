@@ -1,8 +1,7 @@
-public class Manager {
+public interface Manager {
 
-    void create(){}
-    void update(){}
-    void delete(){}
-    void print(){}
-    void start(int command){}
+    public void create();
+    public void update();
+    public void delete();
+    public void print();
 }
