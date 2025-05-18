@@ -1,10 +1,7 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public interface Manager<T> {
-
-    void create();
-    void update();
-    void delete();
-    void print();
-    void storageAdd(T component);
+public abstract class Manager<T> {
+    protected Scanner scanner = new Scanner(System.in);
+    protected ArrayList<T> storage = new ArrayList<>();
 }

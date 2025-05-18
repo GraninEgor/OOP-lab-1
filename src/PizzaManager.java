@@ -1,7 +1,7 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class PizzaManager implements Manager<Pizza> {
-    private final ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality<Pizza> {
 
     @Override
     public void create(){

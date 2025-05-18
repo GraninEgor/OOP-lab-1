@@ -1,11 +1,8 @@
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
-public class IngredientManager implements Manager<Ingredient> {
-    private final ArrayList<Ingredient> ingredients = new ArrayList<>();
+public class IngredientManager extends Manager<Ingredient> implements ManagerFunctionality<Ingredient> {
 
-    Scanner scanner = new Scanner(System.in);
     @Override
     public void create(){
         String name;
@@ -38,13 +35,13 @@ public class IngredientManager implements Manager<Ingredient> {
     }
     @Override
     public void print(){
-        for(int i = 0;i<ingredients.size();i++){
-            System.out.println(i + " - " + ingredients.get(i).getName() + " - " + ingredients.get(i).getPrice());
+        for(int i = 0;i<storage.size();i++){
+            System.out.println(i + " - " + storage.get(i).getName() + " - " + storage.get(i).getPrice());
         }
     }
 
     @Override
     public void storageAdd(Ingredient ingredient) {
-        ingredients.add(ingredient);
+        storage.add(ingredient);
     }
 }

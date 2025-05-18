@@ -8,10 +8,10 @@ public class PizzaSystem {
     private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
     int command;
     Controller controller = new Controller();
-    Manager pizzaManager = new PizzaManager();
-    Manager baseManager = new BaseManager();
-    Manager ingredientManager = new IngredientManager();
-    Manager selectedManager;
+    ManagerFunctionality pizzaManager = new PizzaManager();
+    ManagerFunctionality baseManager = new BaseManager();
+    ManagerFunctionality ingredientManager = new IngredientManager();
+    ManagerFunctionality selectedManager;
 
     void start(){
         while(true){
@@ -450,8 +450,8 @@ public class PizzaSystem {
 
     }
 
-    Manager selectManager(){
-        Manager manager = null;
+    ManagerFunctionality selectManager(){
+        ManagerFunctionality manager = null;
         int selectedItemCommand;
         System.out.println("Пиццу - 1\nОснову - 2\nИнгредиент - 3\nЧтобы вернутся нажмите 0");
         selectedItemCommand = scanner.nextInt();
