@@ -14,4 +14,22 @@ public abstract class Manager<T extends Component> {
     public void storageAdd(T item) {
         storage.add(item);
     }
+
+    public void delete(){
+        boolean deleteDialog = true;
+        int selected;
+        while (deleteDialog){
+            System.out.println("Введи номер:\nДля выхода введи -1");
+            print();
+            selected = scanner.nextInt();
+            if(selected>0 && selected<storage.size()){
+                storage.remove(selected);
+            }
+            else{
+                deleteDialog = false;
+            }
+        }
+    }
+
+
 }
