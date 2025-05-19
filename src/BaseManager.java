@@ -20,9 +20,5 @@ public class BaseManager extends Manager<Base> implements ManagerFunctionality<B
 
     }
 
-    @Override
-    public void storageAdd(Base component) {
-
-    }
 
 }

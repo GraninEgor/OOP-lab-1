@@ -33,15 +33,4 @@ public class IngredientManager extends Manager<Ingredient> implements ManagerFun
 //            }
 //        }
     }
-    @Override
-    public void print(){
-        for(int i = 0;i<storage.size();i++){
-            System.out.println(i + " - " + storage.get(i).getName() + " - " + storage.get(i).getPrice());
-        }
-    }
-
-    @Override
-    public void storageAdd(Ingredient ingredient) {
-        storage.add(ingredient);
-    }
 }

@@ -19,9 +19,4 @@ public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality
     public void print(){
 
     }
-
-    @Override
-    public void storageAdd(Pizza component) {
-
-    }
 }
