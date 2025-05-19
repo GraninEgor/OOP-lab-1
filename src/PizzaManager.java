@@ -27,6 +27,7 @@ public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality
 
         storage.add(new Pizza(pizzaName, 0, selectedBase, ingredients));
         System.out.println("Пицца успешно создана!");
+        countPrice();
     }
 
     private String getNewPizzaName() {
@@ -98,8 +99,7 @@ public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality
         else if(selectedAction == 3){
             changePizzaIngredients(selectedPizza);
         }
-
-
+        countPrice();
     }
 
     private int selectPizza(){
@@ -200,6 +200,18 @@ public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality
             else{
                 dialogState = false;
             }
+        }
+    }
+
+    public void countPrice(){
+        int price;
+        for(int i = 0;i<storage.size();i++){
+            price = 0;
+            for(Ingredient ingredient: storage.get(i).ingredients){
+                price += ingredient.getPrice();
+            }
+            price += storage.get(i).base.getPrice();
+            storage.get(i).setPrice(price);
         }
     }
 }
