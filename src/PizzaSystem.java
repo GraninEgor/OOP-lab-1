@@ -8,9 +8,9 @@ public class PizzaSystem {
     private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
     int command;
     Controller controller = new Controller();
-    ManagerFunctionality pizzaManager = new PizzaManager();
     ManagerFunctionality baseManager = new BaseManager();
     ManagerFunctionality ingredientManager = new IngredientManager();
+    ManagerFunctionality pizzaManager = new PizzaManager(baseManager,ingredientManager);
     ManagerFunctionality selectedManager;
 
     void start(){

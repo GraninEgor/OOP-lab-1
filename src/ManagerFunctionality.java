@@ -5,4 +5,6 @@ public interface ManagerFunctionality<T> {
     void delete();
     void print();
     void storageAdd(T component);
+    int storageSize();
+    T storageGet(int index);
 }

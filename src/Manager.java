@@ -15,6 +15,14 @@ public abstract class Manager<T extends Component> {
         storage.add(item);
     }
 
+    public int storageSize() {
+        return storage.size();
+    }
+
+    public T storageGet(int index) {
+        return storage.get(index);
+    }
+
     public void delete(){
         boolean deleteDialog = true;
         int selected;
