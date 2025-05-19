@@ -14,8 +14,4 @@ public class IngredientManager extends Manager<Ingredient> implements ManagerFun
         scanner.nextLine();
         storageAdd(new Ingredient(name,price));
     }
-    @Override
-    public void update(){
-
-    }
 }

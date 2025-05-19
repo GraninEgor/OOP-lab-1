@@ -31,5 +31,42 @@ public abstract class Manager<T extends Component> {
         }
     }
 
+    public void update(){
+        boolean updateDialog = true;
+        int selectedItem;
+        int selectedChange;
+        String name;
+        int price;
+        while (updateDialog){
+            System.out.println("Введи номер:\nДля выхода введи -1");
+            print();
+            selectedItem = scanner.nextInt();
+            if(selectedItem>=0 && selectedItem<storage.size()){
+                System.out.println("Изменить название - 1\nИзменить цену - 2\nДля выхода введи -1");
+                selectedChange = scanner.nextInt();
+                if(selectedChange == 1){
+                    System.out.println("Введи новое название");
+                    scanner.nextLine();
+                    name = scanner.nextLine();
+                    storage.get(selectedItem).setName(name);
+                }
+                else if(selectedChange == 2){
+                    System.out.println("Введи новую цену");
+                    price = scanner.nextInt();
+                    storage.get(selectedItem).setPrice(price);
+                }
+            }
+            else{
+                if(selectedItem == -1){
+                    updateDialog = false;
+                }
+                else{
+                    System.out.println("Некорректный ввод");
+                }
+            }
+        }
+    }
+
+
 
 }

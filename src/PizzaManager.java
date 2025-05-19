@@ -11,5 +11,4 @@ public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality
     public void update(){
 
     }
-
 }

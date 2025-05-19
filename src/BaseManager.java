@@ -14,9 +14,5 @@ public class BaseManager extends Manager<Base> implements ManagerFunctionality<B
         scanner.nextLine();
         storage.add(new Base(name,price));
     }
-    @Override
-    public void update(){
-
-    }
 
 }
