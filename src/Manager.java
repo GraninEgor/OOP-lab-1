@@ -57,11 +57,13 @@ public abstract class Manager<T extends Component> {
                     scanner.nextLine();
                     name = scanner.nextLine();
                     storage.get(selectedItem).setName(name);
+                    updateDialog = false;
                 }
                 else if(selectedChange == 2){
                     System.out.println("Введи новую цену");
                     price = scanner.nextInt();
                     storage.get(selectedItem).setPrice(price);
+                    updateDialog = false;
                 }
             }
             else{
