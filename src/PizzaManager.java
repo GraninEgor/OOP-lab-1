@@ -30,7 +30,6 @@ public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality
     }
 
     private String getNewPizzaName() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Введите название пиццы");
         return scanner.nextLine();
     }
@@ -82,8 +81,125 @@ public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality
 
     @Override
     public void update(){
+        int selectedPizza = selectPizza();
+        if(selectedPizza == -1){
+            return;
+        }
+        int selectedAction = selectAction();
+        if(selectedAction == -1){
+            return;
+        }
+        if(selectedAction == 1){
+            changePizzaName(selectedPizza);
+        }
+        else if(selectedAction == 2){
+            changePizzaBase(selectedPizza);
+        }
+        else if(selectedAction == 3){
+            changePizzaIngredients(selectedPizza);
+        }
+
 
     }
 
+    private int selectPizza(){
+        int selectedPizza;
+        System.out.println("Выберите пиццу\nЧтобы вернутся введите -1");
+        this.print();
+        selectedPizza = scanner.nextInt();
+        if(selectedPizza>=0 && selectedPizza<storage.size()){
+            return selectedPizza;
+        }
+        else if(selectedPizza == -1){
+            return -1;
+        }
+        else{
+            System.out.println("Некорректный ввод");
+            return -1;
+        }
+    }
 
+    private int selectAction(){
+        int selectedAction;
+        System.out.println("Изменить название - 1\nИзменить основу - 2\nИзменить ингедиенты - 3\nЧтобы вернутся введите -1");
+        selectedAction = scanner.nextInt();
+        if(selectedAction != 1 && selectedAction != 2 &&selectedAction != 3){
+            return -1;
+        }
+        else return selectedAction;
+    }
+
+    private void changePizzaName(int pizzaId){
+        String newName;
+        System.out.println("Введите новое название:");
+        scanner.nextLine();
+        newName = scanner.nextLine();
+        storage.get(pizzaId).setName(newName);
+    }
+
+    private void changePizzaBase(int pizzaId){
+        int selectedBase;
+        System.out.println("Выберите новую основу");
+        baseManager.print();
+        selectedBase = scanner.nextInt();
+        if(selectedBase>=0 && selectedBase<baseManager.storageSize()){
+            storage.get(pizzaId).base = baseManager.storageGet(selectedBase);
+        }
+        else{
+            System.out.println("Некорректный ввод");
+        }
+    }
+
+    private void changePizzaIngredients(int pizzaId){
+        boolean dialogState = true;
+        int command;
+        while (dialogState){
+            System.out.println("Добавить - 1\nУдалить - 2\nДля выода введите -1");
+            command = scanner.nextInt();
+            if(command == 1){
+                addIngredientToPizza(pizzaId);
+            }
+            else if(command == 2){
+                deletePizzaFromPizza(pizzaId);
+            }
+            else if(command == -1){
+                dialogState = false;
+            }
+            else{
+                System.out.println("Некорректный ввод");
+            }
+        }
+    }
+
+    private void addIngredientToPizza(int pizzaId){
+        int selectedIngredient;
+        boolean dialogState = true;
+        while (dialogState){
+            System.out.println("Введи номер ингредиента\nДля выхода введите -1");
+            ingredientManager.print();
+            selectedIngredient = scanner.nextInt();
+            if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
+                storage.get(pizzaId).ingredients.add(ingredientManager.storageGet(selectedIngredient));
+            }
+            else{
+                dialogState = false;
+            }
+        }
+    }
+
+    private void deletePizzaFromPizza(int pizzaId){
+        int selectedIngredient;
+        boolean dialogState = true;
+        while (dialogState){
+            System.out.println("Введи номер ингредиента\nДля выхода введите -1");
+            ingredientManager.print();
+            selectedIngredient = scanner.nextInt();
+            if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
+                storage.get(pizzaId).ingredients.remove(selectedIngredient);
+            }
+            else{
+                dialogState = false;
+            }
+        }
+    }
 }
