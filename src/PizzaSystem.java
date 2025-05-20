@@ -11,6 +11,7 @@ public class PizzaSystem {
     Manager selectedManager;
 
     void start(){
+        ((PizzaManager)pizzaManager).setSideManager((SideManager) sideManager);
         while(true){
             System.out.println("Создать - 1\nРедактировать - 2\nУдалить -3\nВывести - 4");
             command = scanner.nextInt();

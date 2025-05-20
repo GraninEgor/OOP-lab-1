@@ -3,12 +3,13 @@ import java.util.Scanner;
 
 public class PizzaManager extends Manager<Pizza> {
 
-    private final ManagerFunctionality<Base> baseManager;
-    private final ManagerFunctionality<Ingredient> ingredientManager;
+    private final Manager<Base> baseManager;
+    private final Manager<Ingredient> ingredientManager;
+    private Manager<Side> sideManager;
 
     public PizzaManager(
-            ManagerFunctionality<Base> baseManager,
-            ManagerFunctionality<Ingredient> ingredientManager
+            Manager<Base> baseManager,
+            Manager<Ingredient> ingredientManager
     ) {
         this.baseManager = baseManager;
         this.ingredientManager = ingredientManager;
@@ -25,8 +26,10 @@ public class PizzaManager extends Manager<Pizza> {
         ArrayList<Ingredient> ingredients = selectIngredientsFromUser();
         if (ingredients == null) return;
 
+        Side selectedSide = selectSideFromUser();
+        if (selectedSide == null) return;
 
-        storage.add(new Pizza(pizzaName, 0, selectedBase, ingredients));
+        storage.add(new Pizza(pizzaName, 0, selectedBase, ingredients, selectedSide));
         System.out.println("Пицца успешно создана!");
         countPrice();
     }
@@ -37,7 +40,6 @@ public class PizzaManager extends Manager<Pizza> {
     }
 
     private Base selectBaseFromUser() {
-        Scanner scanner = new Scanner(System.in);
         Base selectedBase = null;
         boolean baseDialog = true;
 
@@ -118,6 +120,10 @@ public class PizzaManager extends Manager<Pizza> {
             System.out.println("Некорректный ввод");
             return -1;
         }
+    }
+
+    public void setSideManager(SideManager sideManager){
+        this.sideManager = sideManager;
     }
 
     private int selectAction(){
@@ -215,4 +221,26 @@ public class PizzaManager extends Manager<Pizza> {
             storage.get(i).setPrice(price);
         }
     }
+
+    private Side selectSideFromUser(){
+        Side selectedSide = null;
+        boolean sideDialog = true;
+
+        while (sideDialog) {
+            System.out.println("Выберите бортик\nЧтобы вернуться нажмите -1");
+            sideManager.print();
+
+            int selectedSideIndex = scanner.nextInt();
+            if (selectedSideIndex >= 0 && selectedSideIndex < sideManager.storageSize()) {
+                selectedSide = sideManager.storageGet(selectedSideIndex);
+                sideDialog = false;
+            } else if (selectedSideIndex == -1) {
+                return null;
+            } else {
+                System.out.println("Некорректный ввод");
+            }
+        }
+        return selectedSide;
+    }
+
 }
