@@ -7,6 +7,7 @@ public class PizzaSystem {
     Manager<Base> baseManager = new BaseManager();
     Manager<Ingredient> ingredientManager = new IngredientManager();
     Manager<Pizza> pizzaManager = new PizzaManager(baseManager,ingredientManager);
+    Manager<Side> sideManager = new SideManager();
     Manager selectedManager;
 
     void start(){
@@ -47,7 +48,7 @@ public class PizzaSystem {
     Manager selectManager(){
         Manager manager = null;
         int selectedItemCommand;
-        System.out.println("Пиццу - 1\nОснову - 2\nИнгредиент - 3\nЧтобы вернутся нажмите 0");
+        System.out.println("Пиццу - 1\nОснову - 2\nИнгредиент - 3\nБортик - 4\nЧтобы вернутся нажмите 0");
         selectedItemCommand = scanner.nextInt();
         switch (selectedItemCommand){
             case 1:
@@ -59,6 +60,8 @@ public class PizzaSystem {
             case 3:
                 manager = ingredientManager;
                 break;
+            case 4:
+                manager = sideManager;
             default:
                 break;
         }
