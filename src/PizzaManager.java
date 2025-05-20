@@ -102,6 +102,9 @@ public class PizzaManager extends Manager<Pizza> {
         else if(selectedAction == 3){
             changePizzaIngredients(selectedPizza);
         }
+        else if(selectedAction == 4){
+            changePizzaSide(selectedPizza);
+        }
         countPrice();
     }
 
@@ -128,7 +131,7 @@ public class PizzaManager extends Manager<Pizza> {
 
     private int selectAction(){
         int selectedAction;
-        System.out.println("Изменить название - 1\nИзменить основу - 2\nИзменить ингедиенты - 3\nЧтобы вернутся введите -1");
+        System.out.println("Изменить название - 1\nИзменить основу - 2\nИзменить ингедиенты - 3\nИзменить бортик - 4\nЧтобы вернутся введите -1");
         selectedAction = scanner.nextInt();
         if(selectedAction != 1 && selectedAction != 2 &&selectedAction != 3){
             return -1;
@@ -241,6 +244,24 @@ public class PizzaManager extends Manager<Pizza> {
             }
         }
         return selectedSide;
+    }
+
+    private void changePizzaSide(int pizzaId){
+        int selectedSide;
+        System.out.println("Выберите новую основу");
+        sideManager.print();
+        selectedSide = scanner.nextInt();
+        if(selectedSide>=0 && selectedSide<baseManager.storageSize()){
+            if(sideManager.storageGet(selectedSide).notAllowedPizzas.contains(storage.get(pizzaId))){
+                System.out.println("Пицца запрещена");
+            }
+            else{
+                storage.get(pizzaId).side = sideManager.storageGet(selectedSide);
+            }
+        }
+        else{
+            System.out.println("Некорректный ввод");
+        }
     }
 
 }
