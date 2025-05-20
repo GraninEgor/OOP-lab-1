@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BaseManager extends Manager<Base> implements ManagerFunctionality<Base> {
+public class BaseManager extends Manager<Base> {
 
     Base classic;
 

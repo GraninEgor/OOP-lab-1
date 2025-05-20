@@ -1,14 +1,13 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PizzaSystem {
     Scanner scanner = new Scanner(System.in);
     int command;
     Controller controller = new Controller();
-    ManagerFunctionality baseManager = new BaseManager();
-    ManagerFunctionality ingredientManager = new IngredientManager();
-    ManagerFunctionality pizzaManager = new PizzaManager(baseManager,ingredientManager);
-    ManagerFunctionality selectedManager;
+    Manager<Base> baseManager = new BaseManager();
+    Manager<Ingredient> ingredientManager = new IngredientManager();
+    Manager<Pizza> pizzaManager = new PizzaManager(baseManager,ingredientManager);
+    Manager selectedManager;
 
     void start(){
         while(true){
@@ -45,8 +44,8 @@ public class PizzaSystem {
         }
     }
 
-    ManagerFunctionality selectManager(){
-        ManagerFunctionality manager = null;
+    Manager selectManager(){
+        Manager manager = null;
         int selectedItemCommand;
         System.out.println("Пиццу - 1\nОснову - 2\nИнгредиент - 3\nЧтобы вернутся нажмите 0");
         selectedItemCommand = scanner.nextInt();

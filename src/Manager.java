@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class Manager<T extends Component> {
+public abstract class Manager<T extends Component> implements ManagerFunctionality<T>{
     protected Scanner scanner = new Scanner(System.in);
     protected ArrayList<T> storage = new ArrayList<>();
 

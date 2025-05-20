@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class IngredientManager extends Manager<Ingredient> implements ManagerFunctionality<Ingredient> {
+public class IngredientManager extends Manager<Ingredient> {
 
     @Override
     public void create(){

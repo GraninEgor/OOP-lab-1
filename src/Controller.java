@@ -1,14 +1,14 @@
 public class Controller {
-    public void create(ManagerFunctionality manager){
+    public void create(Manager manager){
         manager.create();
     }
-    public void update(ManagerFunctionality manager){
+    public void update(Manager manager){
         manager.update();
     }
-    public void delete(ManagerFunctionality manager){
+    public void delete(Manager manager){
         manager.delete();
     }
-    public void show(ManagerFunctionality manager){
+    public void show(Manager manager){
         manager.print();
     }
 }

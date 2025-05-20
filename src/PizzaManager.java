@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PizzaManager extends Manager<Pizza> implements ManagerFunctionality<Pizza> {
+public class PizzaManager extends Manager<Pizza> {
 
     private final ManagerFunctionality<Base> baseManager;
     private final ManagerFunctionality<Ingredient> ingredientManager;
