@@ -25,6 +25,7 @@ public class PizzaManager extends Manager<Pizza> {
         ArrayList<Ingredient> ingredients = selectIngredientsFromUser();
         if (ingredients == null) return;
 
+
         storage.add(new Pizza(pizzaName, 0, selectedBase, ingredients));
         System.out.println("Пицца успешно создана!");
         countPrice();

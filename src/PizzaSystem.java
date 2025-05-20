@@ -7,7 +7,7 @@ public class PizzaSystem {
     Manager<Base> baseManager = new BaseManager();
     Manager<Ingredient> ingredientManager = new IngredientManager();
     Manager<Pizza> pizzaManager = new PizzaManager(baseManager,ingredientManager);
-    Manager<Side> sideManager = new SideManager();
+    Manager<Side> sideManager = new SideManager(ingredientManager, pizzaManager);
     Manager selectedManager;
 
     void start(){
