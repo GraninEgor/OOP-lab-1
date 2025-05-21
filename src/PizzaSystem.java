@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PizzaSystem {
@@ -14,42 +15,47 @@ public class PizzaSystem {
     void start() {
         ((PizzaManager) pizzaManager).setSideManager((SideManager) sideManager);
         while (true) {
-            System.out.println("Создать - 1\nРедактировать - 2\nУдалить - 3\nВывести - 4\nФильтр - 5");
-            command = scanner.nextInt();
-            scanner.nextLine();
-            switch (command) {
-                case 1:
-                    selectedManager = selectManager();
-                    if (selectedManager != null) {
-                        controller.create(selectedManager);
-                    }
-                    break;
-                case 2:
-                    selectedManager = selectManager();
-                    if (selectedManager != null) {
-                        controller.update(selectedManager);
-                    }
-                    break;
-                case 3:
-                    selectedManager = selectManager();
-                    if (selectedManager != null) {
-                        controller.delete(selectedManager);
-                    }
-                    break;
-                case 4:
-                    selectedManager = selectManager();
-                    if (selectedManager != null) {
-                        controller.show(selectedManager);
-                    }
-                    break;
-                case 5:
-                    selectedManager = selectManager();
-                    if (selectedManager != null) {
-                        selectedManager.filter();
-                    }
-                    break;
-                default:
-                    System.out.println("Некорректный ввод");
+            try {
+                System.out.println("Создать - 1\nРедактировать - 2\nУдалить - 3\nВывести - 4\nФильтр - 5");
+                command = scanner.nextInt();
+                scanner.nextLine();
+                switch (command) {
+                    case 1:
+                        selectedManager = selectManager();
+                        if (selectedManager != null) {
+                            controller.create(selectedManager);
+                        }
+                        break;
+                    case 2:
+                        selectedManager = selectManager();
+                        if (selectedManager != null) {
+                            controller.update(selectedManager);
+                        }
+                        break;
+                    case 3:
+                        selectedManager = selectManager();
+                        if (selectedManager != null) {
+                            controller.delete(selectedManager);
+                        }
+                        break;
+                    case 4:
+                        selectedManager = selectManager();
+                        if (selectedManager != null) {
+                            controller.show(selectedManager);
+                        }
+                        break;
+                    case 5:
+                        selectedManager = selectManager();
+                        if (selectedManager != null) {
+                            selectedManager.filter();
+                        }
+                        break;
+                    default:
+                        System.out.println("Некорректный ввод");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Ошибка: некорректный ввод. Ожидается число.");
+                scanner.nextLine();
             }
         }
     }

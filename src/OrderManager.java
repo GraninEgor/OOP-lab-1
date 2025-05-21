@@ -1,5 +1,6 @@
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -23,37 +24,45 @@ public class OrderManager  extends Manager<Order>{
     @Override
     public void create() {
         int selectedAction;
-        Order order = new Order(getComment(),0);
+        Order order = new Order(getComment(), 0);
         boolean dialogState = true;
-        while (dialogState){
-            System.out.println("Создать с уже сделанными - 1\nСоздать новую - 2\nСоздать комбинированную - 3\nЧтобы подтвердить введите -1\n");
-            selectedAction = scanner.nextInt();
-            scanner.nextLine();
-            if(selectedAction == 1){
-                addPizzasToOrder(order);
-            }
-            else if(selectedAction == 2){
-                createNewPizzaToOrder(order);
-            }
-            else if(selectedAction == 3){
-                createCombinedPizzaToOrder(order);
-            }
-            else{
-                dialogState = false;
+        while (dialogState) {
+            try {
+                System.out.println("Создать с уже сделанными - 1\nСоздать новую - 2\nСоздать комбинированную - 3\nЧтобы подтвердить введите -1");
+                selectedAction = scanner.nextInt();
+                scanner.nextLine();
+                if (selectedAction == 1) {
+                    addPizzasToOrder(order);
+                } else if (selectedAction == 2) {
+                    createNewPizzaToOrder(order);
+                } else if (selectedAction == 3) {
+                    createCombinedPizzaToOrder(order);
+                } else {
+                    dialogState = false;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Ошибка: некорректный ввод. Ожидается число.");
+                scanner.nextLine();
             }
         }
+
         int isDeferred;
-        System.out.println("Сделать отложенным?\nНет - 0\nДа - 1");
-        isDeferred = scanner.nextInt();
-        scanner.nextLine();
-        if (isDeferred == 1){
-            LocalDate userDate = getValidatedDateFromUser();
-            LocalTime userTime = getValidatedTimeFromUser();
-            order.setDate(userDate);
-            order.setTime(userTime);
+        try {
+            System.out.println("Сделать отложенным?\nНет - 0\nДа - 1");
+            isDeferred = scanner.nextInt();
+            scanner.nextLine();
+            if (isDeferred == 1) {
+                LocalDate userDate = getValidatedDateFromUser();
+                LocalTime userTime = getValidatedTimeFromUser();
+                order.setDate(userDate);
+                order.setTime(userTime);
+            }
+            order.setPrice(countPrice(order.pizzas));
+            storage.add(order);
+        } catch (InputMismatchException e) {
+            System.out.println("Ошибка: некорректный ввод. Ожидается число.");
+            scanner.nextLine();
         }
-        order.setPrice(countPrice(order.pizzas));
-        storage.add(order);
     }
 
 
@@ -262,7 +271,7 @@ public class OrderManager  extends Manager<Order>{
     @Override
     public void print(){
         for(Order order: storage){
-            System.out.println(order.getName() + " " + order.getPrice() + " " + order.date + " " + order.time);
+            System.out.println("ID: "+ order.id + " " + " Комментарий: " +order.getName() + " " +"Цена: " +order.getPrice() + " " + "Дата: " +order.date + " " + order.time);
             for(Pizza pizza: order.pizzas){
                 System.out.println("   " + pizza.getName() + " - " + pizza.getPrice());
             }

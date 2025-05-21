@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public abstract class Manager<T extends Component> implements ManagerFunctionality<T>{
@@ -28,13 +29,18 @@ public abstract class Manager<T extends Component> implements ManagerFunctionali
         boolean deleteDialog = true;
         int selected;
         while (deleteDialog){
-            System.out.println("Введи номер:\nДля выхода введи -1");
-            print();
-            selected = scanner.nextInt();
-            if(selected>0 && selected<storage.size()){
-                storage.remove(selected);
-            }
-            else{
+            try {
+                System.out.println("Введи номер:\nДля выхода введи -1");
+                print();
+                selected = scanner.nextInt();
+                if(selected > 0 && selected < storage.size()){
+                    storage.remove(selected);
+                } else {
+                    deleteDialog = false;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Ошибка: некорректный ввод. Ожидается число.");
+                scanner.nextLine();
                 deleteDialog = false;
             }
         }
@@ -47,36 +53,40 @@ public abstract class Manager<T extends Component> implements ManagerFunctionali
         String name;
         int price;
         while (updateDialog){
-            System.out.println("Введи номер:\nДля выхода введи -1");
-            print();
-            selectedItem = scanner.nextInt();
-            if(selectedItem>=0 && selectedItem<storage.size()){
-                System.out.println("Изменить название - 1\nИзменить цену - 2\nДля выхода введи -1");
-                selectedChange = scanner.nextInt();
-                if(selectedChange == 1){
-                    System.out.println("Введи новое название");
-                    scanner.nextLine();
-                    name = scanner.nextLine();
-                    storage.get(selectedItem).setName(name);
-                    updateDialog = false;
+            try {
+                System.out.println("Введи номер:\nДля выхода введи -1");
+                print();
+                selectedItem = scanner.nextInt();
+                if(selectedItem >= 0 && selectedItem < storage.size()){
+                    System.out.println("Изменить название - 1\nИзменить цену - 2\nДля выхода введи -1");
+                    selectedChange = scanner.nextInt();
+                    if(selectedChange == 1){
+                        System.out.println("Введи новое название");
+                        scanner.nextLine();
+                        name = scanner.nextLine();
+                        storage.get(selectedItem).setName(name);
+                        updateDialog = false;
+                    } else if(selectedChange == 2){
+                        System.out.println("Введи новую цену");
+                        price = scanner.nextInt();
+                        storage.get(selectedItem).setPrice(price);
+                        updateDialog = false;
+                    }
+                } else {
+                    if(selectedItem == -1){
+                        updateDialog = false;
+                    } else {
+                        System.out.println("Некорректный ввод");
+                    }
                 }
-                else if(selectedChange == 2){
-                    System.out.println("Введи новую цену");
-                    price = scanner.nextInt();
-                    storage.get(selectedItem).setPrice(price);
-                    updateDialog = false;
-                }
-            }
-            else{
-                if(selectedItem == -1){
-                    updateDialog = false;
-                }
-                else{
-                    System.out.println("Некорректный ввод");
-                }
+            } catch (InputMismatchException e) {
+                System.out.println("Ошибка: некорректный ввод. Ожидается число.");
+                scanner.nextLine();
+                updateDialog = false;
             }
         }
     }
+
     public void filter() {
         if (storage.isEmpty()) {
             System.out.println("Список пуст.");

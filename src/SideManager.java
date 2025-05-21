@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SideManager extends Manager<Side>{
@@ -133,20 +134,24 @@ public class SideManager extends Manager<Side>{
         }
     }
 
-    private int selectSide(){
-        int selectedSide;
-        System.out.println("Выберите бортик\nЧтобы вернутся введите -1");
-        this.print();
-        selectedSide = scanner.nextInt();
-        scanner.nextLine();
-        if(selectedSide>=0 && selectedSide<storage.size()){
-            return selectedSide;
-        }
-        else if(selectedSide == -1){
-            return -1;
-        }
-        else{
-            System.out.println("Некорректный ввод");
+    private int selectSide() {
+        try {
+            int selectedSide;
+            System.out.println("Выберите бортик\nЧтобы вернуться введите -1");
+            this.print();
+            selectedSide = scanner.nextInt();
+            scanner.nextLine();
+            if (selectedSide >= 0 && selectedSide < storage.size()) {
+                return selectedSide;
+            } else if (selectedSide == -1) {
+                return -1;
+            } else {
+                System.out.println("Некорректный ввод");
+                return -1;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Ошибка: некорректный ввод. Ожидается число.");
+            scanner.nextLine();
             return -1;
         }
     }

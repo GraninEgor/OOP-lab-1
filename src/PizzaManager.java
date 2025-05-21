@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PizzaManager extends Manager<Pizza> {
@@ -131,15 +132,22 @@ public class PizzaManager extends Manager<Pizza> {
         this.sideManager = sideManager;
     }
 
-    private int selectAction(){
-        int selectedAction;
-        System.out.println("Изменить название - 1\nИзменить основу - 2\nИзменить ингедиенты - 3\nИзменить бортик - 4\nЧтобы вернутся введите -1");
-        selectedAction = scanner.nextInt();
-        scanner.nextLine();
-        if(selectedAction != 1 && selectedAction != 2 && selectedAction != 3 && selectedAction != 4){
+    private int selectAction() {
+        try {
+            int selectedAction;
+            System.out.println("Изменить название - 1\nИзменить основу - 2\nИзменить ингредиенты - 3\nИзменить бортик - 4\nЧтобы вернуться введите -1");
+            selectedAction = scanner.nextInt();
+            scanner.nextLine();
+            if (selectedAction != 1 && selectedAction != 2 && selectedAction != 3 && selectedAction != 4) {
+                return -1;
+            } else {
+                return selectedAction;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Ошибка: некорректный ввод. Ожидается число.");
+            scanner.nextLine();
             return -1;
         }
-        else return selectedAction;
     }
 
     private void changePizzaName(int pizzaId){
