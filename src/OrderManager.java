@@ -18,19 +18,26 @@ public class OrderManager  extends Manager<Order>{
     @Override
     public void create() {
         int selectedAction;
-        System.out.println("Создать с уже сделанными - 1\nСоздать новую - 2\nСоздать комбинированную - 3\nЧтобы подтвердить введите -1\n");
-        selectedAction = scanner.nextInt();
-        scanner.nextLine();
         Order order = new Order(getComment(),0);
-        if(selectedAction == 1){
-            addPizzasToOrder(order);
+        boolean dialogState = true;
+        while (dialogState){
+            System.out.println("Создать с уже сделанными - 1\nСоздать новую - 2\nСоздать комбинированную - 3\nЧтобы подтвердить введите -1\n");
+            selectedAction = scanner.nextInt();
+            scanner.nextLine();
+            if(selectedAction == 1){
+                addPizzasToOrder(order);
+            }
+            else if(selectedAction == 2){
+                createNewPizzaToOrder(order);
+            }
+            else if(selectedAction == 3){
+                createCombinedPizzaToOrder(order);
+            }
+            else{
+                dialogState = false;
+            }
         }
-        else if(selectedAction == 2){
-            createNewPizzaToOrder(order);
-        }
-        else if(selectedAction == 3){
-            createCombinedPizzaToOrder(order);
-        }
+        order.setPrice(countPrice(order.pizzas));
         storage.add(order);
     }
 
@@ -71,6 +78,9 @@ public class OrderManager  extends Manager<Order>{
 
     private void createNewPizzaToOrder(Order order){
         Pizza pizza = createPizza();
+        if (pizza == null){
+            return;
+        }
         order.pizzas.add(pizza);
     }
 
@@ -213,4 +223,22 @@ public class OrderManager  extends Manager<Order>{
         return selectedSide;
     }
 
+    @Override
+    public void print(){
+        for(Order order: storage){
+            System.out.println(order.getName() + " " + order.getPrice() + " " + order.time);
+            for(Pizza pizza: order.pizzas){
+                System.out.println("   " + pizza.getName());
+            }
+        }
+
+    }
+
+    private int countPrice(ArrayList<Pizza> pizzas){
+        int price = 0;
+        for(Pizza pizza: pizzas){
+            price+=pizza.getPrice();
+        }
+        return price;
+    }
 }
