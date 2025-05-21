@@ -1,6 +1,11 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 public class OrderManager  extends Manager<Order>{
 
     BaseManager baseManager;
@@ -240,5 +245,31 @@ public class OrderManager  extends Manager<Order>{
             price+=pizza.getPrice();
         }
         return price;
+    }
+
+    public static LocalDate getValidatedDateFromUser(Scanner scanner) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        while (true) {
+            System.out.println("Введите дату в формате yyyy-MM-dd:");
+            String input = scanner.nextLine();
+            try {
+                return LocalDate.parse(input, dateFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Ошибка: неверный формат даты. Попробуйте снова.");
+            }
+        }
+    }
+
+    public static LocalTime getValidatedTimeFromUser(Scanner scanner) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        while (true) {
+            System.out.println("Введите время в формате HH:mm:");
+            String input = scanner.nextLine();
+            try {
+                return LocalTime.parse(input, timeFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Ошибка: неверный формат времени. Попробуйте снова.");
+            }
+        }
     }
 }

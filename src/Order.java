@@ -12,4 +12,6 @@ public class Order extends Component{
         super(name, price);
         this.time = LocalDateTime.now();
     }
+
+
 }
