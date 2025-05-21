@@ -225,4 +225,34 @@ public class SideManager extends Manager<Side>{
             }
         }
     }
+    @Override
+    public void filter() {
+        System.out.println("Фильтрация бортиков:");
+        System.out.println("1 - По названию");
+        System.out.println("2 - По цене");
+        System.out.println("3 - По ингредиенту");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice == 3) {
+            ingredientManager.print();
+            System.out.println("Введите номер ингредиента для фильтрации:");
+            int ingredientIndex = scanner.nextInt();
+            scanner.nextLine();
+
+            if (ingredientIndex >= 0 && ingredientIndex < ingredientManager.storageSize()) {
+                Ingredient selectedIngredient = ingredientManager.storageGet(ingredientIndex);
+                for (Side side : storage) {
+                    if (side.ingredients.contains(selectedIngredient)) {
+                        System.out.println(side.getName() + " - " + side.getPrice());
+                    }
+                }
+            } else {
+                System.out.println("Неверный номер ингредиента");
+            }
+        } else {
+            super.filter();
+        }
+    }
 }

@@ -52,32 +52,51 @@ public class OrderManager  extends Manager<Order>{
             order.setDate(userDate);
             order.setTime(userTime);
         }
+        order.setPrice(countPrice(order.pizzas));
+        storage.add(order);
     }
+
 
     private void addPizzasToOrder(Order order){
         Pizza pizza;
         int selectedPizza;
         int doubleCommand;
         boolean dialogState = true;
+
         while (dialogState){
             System.out.println("Выбери пиццу для добаления\nЧтобы выйти введите -1");
             pizzaManager.print();
             selectedPizza = scanner.nextInt();
             scanner.nextLine();
+
             if(selectedPizza == -1){
                 dialogState = false;
             }
-            if(selectedPizza>=0 && selectedPizza<pizzaManager.storageSize()){
+
+            if(selectedPizza >= 0 && selectedPizza < pizzaManager.storageSize()){
                 pizza = pizzaManager.storageGet(selectedPizza);
+
+                Size selectedSize = selectSizeFromUser();
+                pizza.setSize(selectedSize);
+
                 System.out.println("Чтобы не удваивать количество ингердиентов - 0\nЧтобы удвоить - 1\nДля выхода введите -1");
                 doubleCommand = scanner.nextInt();
                 scanner.nextLine();
+
                 if(doubleCommand == 0){
                     order.pizzas.add(pizza);
                 }
                 else if(doubleCommand == 1){
-                    pizza.doubleIngredients();
-                    order.pizzas.add(pizza);
+                    Pizza doubledPizza = new Pizza(
+                            pizza.getName(),
+                            pizza.getPrice(),
+                            pizza.base,
+                            new ArrayList<>(pizza.ingredients),
+                            pizza.side
+                    );
+                    doubledPizza.doubleIngredients(); // удваиваем ингредиенты
+                    doubledPizza.setSize(selectedSize); // сохраняем тот же размер
+                    order.pizzas.add(doubledPizza);
                 }
                 else{
                     dialogState = false;
@@ -130,10 +149,13 @@ public class OrderManager  extends Manager<Order>{
         selectAction = scanner.nextInt();
         if(selectAction == 0){
             Side selectedSide = selectSideFromUser();
-            order.pizzas.add(new Pizza(name,price,selectedBase,ingredients,selectedSide));
+            Pizza pizza= new Pizza(name,price,selectedBase,ingredients,selectedSide);
+            order.pizzas.add(pizza);
         }
         else if( selectAction == 1){
-            order.pizzas.add(new Pizza(name,price,selectedBase,ingredients,halfA,halfB,halfA.side,halfB.side));
+            Pizza pizza = new Pizza(name,price,selectedBase,ingredients,halfA,halfB,halfA.side,halfB.side);
+            pizza.setSize(selectSizeFromUser());
+            order.pizzas.add(pizza);
         }
 
     }
@@ -145,7 +167,6 @@ public class OrderManager  extends Manager<Order>{
     }
 
     private Pizza createPizza(){
-        Pizza pizza;
         String pizzaName = getNewPizzaName();
         if (pizzaName == null) return null;
 
@@ -163,7 +184,10 @@ public class OrderManager  extends Manager<Order>{
         }
         price+=selectedBase.getPrice();
         price+=selectedSide.getPrice();
-        return new Pizza(pizzaName, price, selectedBase, ingredients, selectedSide);
+        Pizza pizza = new Pizza(pizzaName, 0, selectedBase, ingredients, selectedSide);
+        pizza.setSize(selectSizeFromUser());
+
+        return pizza;
     }
     private String getNewPizzaName() {
         System.out.println("Введите название пиццы");
@@ -239,7 +263,7 @@ public class OrderManager  extends Manager<Order>{
     @Override
     public void print(){
         for(Order order: storage){
-            System.out.println(order.getName() + " " + order.getPrice() + " " + order.time);
+            System.out.println(order.getName() + " " + order.getPrice() + " " + order.date + " " + order.time);
             for(Pizza pizza: order.pizzas){
                 System.out.println("   " + pizza.getName());
             }
@@ -278,6 +302,54 @@ public class OrderManager  extends Manager<Order>{
             } catch (DateTimeParseException e) {
                 System.out.println("Ошибка: неверный формат времени. Попробуйте снова.");
             }
+        }
+    }
+
+    private Size selectSizeFromUser() {
+        System.out.println("Выберите размер пиццы:");
+        System.out.println("1 - Маленькая (×0.7)");
+        System.out.println("2 - Средняя (×1.0)");
+        System.out.println("3 - Большая (×1.3)");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1: return Size.SMALL;
+            case 2: return Size.MEDIUM;
+            case 3: return Size.LARGE;
+            default:
+                System.out.println("Неверный выбор, установлено значение по умолчанию: Средний размер");
+                return Size.MEDIUM;
+        }
+    }
+    @Override
+    public void filter() {
+        System.out.println("Фильтрация заказов:");
+        System.out.println("1 - По комментарию");
+        System.out.println("2 - По стоимости");
+        System.out.println("3 - По дате");
+        System.out.println("4 - По времени");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice == 3) {
+            LocalDate date = getValidatedDateFromUser();
+            for (Order order : storage) {
+                if (order.getDate().isEqual(date)) {
+                    System.out.println(order.getName() + " - " + order.getPrice() + " - " + order.getDate());
+                }
+            }
+        } else if (choice == 4) {
+            LocalTime time = getValidatedTimeFromUser();
+            for (Order order : storage) {
+                if (order.getTime().equals(time)) {
+                    System.out.println(order.getName() + " - " + order.getPrice() + " - " + order.getTime());
+                }
+            }
+        } else {
+            super.filter(); // базовая фильтрация
         }
     }
 }

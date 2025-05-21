@@ -31,4 +31,10 @@ public class Order extends Component{
             System.out.println("Ошибка: передано пустое время.");
         }
     }
+    public LocalDate getDate() {
+        return date;
+    }
+    public LocalTime getTime() {
+        return time;
+    }
 }

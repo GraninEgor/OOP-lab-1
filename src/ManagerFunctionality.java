@@ -1,5 +1,4 @@
 public interface ManagerFunctionality<T> {
-
     void create();
     void update();
     void delete();

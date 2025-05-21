@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public abstract class Manager<T extends Component> implements ManagerFunctionality<T>{
@@ -76,7 +77,40 @@ public abstract class Manager<T extends Component> implements ManagerFunctionali
             }
         }
     }
+    public void filter() {
+        if (storage.isEmpty()) {
+            System.out.println("Список пуст.");
+            return;
+        }
 
+        System.out.println("Выберите тип фильтрации:");
+        System.out.println("1 - По названию (по алфавиту)");
+        System.out.println("2 - По цене (возрастание)");
+        System.out.println("3 - По цене (убывание)");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        ArrayList<T> filteredList = new ArrayList<>(storage);
+
+        switch (choice) {
+            case 1:
+                filteredList.sort(Comparator.comparing(T::getName));
+                break;
+            case 2:
+                filteredList.sort(Comparator.comparingInt(T::getPrice));
+                break;
+            case 3:
+                filteredList.sort(Comparator.comparingInt(T::getPrice).reversed());
+                break;
+            default:
+                System.out.println("Неверный выбор");
+                return;
+        }
+
+        for (T item : filteredList) {
+            System.out.println(item.getName() + " - " + item.getPrice());
+        }
+    }
 
 
 }
