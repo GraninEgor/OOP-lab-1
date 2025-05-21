@@ -52,6 +52,7 @@ public class SideManager extends Manager<Side>{
             ingredientManager.print();
 
             int selectedIngredientIndex = scanner.nextInt();
+            scanner.nextLine();
             if (selectedIngredientIndex >= 0 && selectedIngredientIndex < ingredientManager.storageSize()) {
                 borderIngredients.add(ingredientManager.storageGet(selectedIngredientIndex));
             } else if (selectedIngredientIndex == -1) {
@@ -90,11 +91,14 @@ public class SideManager extends Manager<Side>{
         while (dialogState){
             System.out.println("Добавить запрещенные пиццы - 1\nУдалить запрещенные пиццы - 2\nЧтобы выйти нажми -1");
             command = scanner.nextInt();
+            scanner.nextLine();
             if(command == 1){
                 System.out.println("Выбери пиццу:\nЧтобы выйти нажми -1");
                 pizzaManager.print();
                 selectedPizza = scanner.nextInt();
+                scanner.nextLine();
                 if(selectedPizza>=0 && selectedPizza<pizzaManager.storageSize()){
+
                     if(notAllowedPizzas.contains(pizzaManager.storageGet(selectedPizza))){
                         System.out.println("Пицца уже добавлена");
                     }
@@ -110,6 +114,7 @@ public class SideManager extends Manager<Side>{
                 System.out.println("Выбери пиццу:\nЧтобы выйти нажми -1");
                 pizzaManager.print();
                 selectedPizza = scanner.nextInt();
+                scanner.nextLine();
                 if(selectedPizza>=0 && selectedPizza<pizzaManager.storageSize()){
                     if(!notAllowedPizzas.contains(pizzaManager.storageGet(selectedPizza))){
                         System.out.println("Пицца уже убрана");
@@ -133,6 +138,7 @@ public class SideManager extends Manager<Side>{
         System.out.println("Выберите бортик\nЧтобы вернутся введите -1");
         this.print();
         selectedSide = scanner.nextInt();
+        scanner.nextLine();
         if(selectedSide>=0 && selectedSide<storage.size()){
             return selectedSide;
         }
@@ -148,6 +154,7 @@ public class SideManager extends Manager<Side>{
         int selectedAction;
         System.out.println("Изменить название - 1\nИзменить ингредиенты - 2\nИзменить запрещённые пиццы - 3\nЧтобы вернутся введите -1");
         selectedAction = scanner.nextInt();
+        scanner.nextLine();
         if(selectedAction != 1 && selectedAction != 2 &&selectedAction != 3){
             return -1;
         }
@@ -157,8 +164,8 @@ public class SideManager extends Manager<Side>{
     private void changeSideName(int sideId){
         String newName;
         System.out.println("Введите новое название:");
-        scanner.nextLine();
         newName = scanner.nextLine();
+        scanner.nextLine();
         storage.get(sideId).setName(newName);
     }
 
@@ -168,6 +175,7 @@ public class SideManager extends Manager<Side>{
         while (dialogState){
             System.out.println("Добавить - 1\nУдалить - 2\nДля выода введите -1");
             command = scanner.nextInt();
+            scanner.nextLine();
             if(command == 1){
                 addIngredientToSide(sideId);
             }
@@ -189,6 +197,7 @@ public class SideManager extends Manager<Side>{
             System.out.println("Введи номер ингредиента\nДля выхода введите -1");
             ingredientManager.print();
             selectedIngredient = scanner.nextInt();
+            scanner.nextLine();
             if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
                 storage.get(pizzaId).ingredients.add(ingredientManager.storageGet(selectedIngredient));
             }
@@ -205,6 +214,7 @@ public class SideManager extends Manager<Side>{
             System.out.println("Введи номер ингредиента\nДля выхода введите -1");
             ingredientManager.print();
             selectedIngredient = scanner.nextInt();
+            scanner.nextLine();
             if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
                 storage.get(pizzaId).ingredients.remove(selectedIngredient);
             }

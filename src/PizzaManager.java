@@ -48,6 +48,7 @@ public class PizzaManager extends Manager<Pizza> {
             baseManager.print();
 
             int selectedBaseIndex = scanner.nextInt();
+            scanner.nextLine();
             if (selectedBaseIndex >= 0 && selectedBaseIndex < baseManager.storageSize()) {
                 selectedBase = baseManager.storageGet(selectedBaseIndex);
                 baseDialog = false;
@@ -71,6 +72,7 @@ public class PizzaManager extends Manager<Pizza> {
             ingredientManager.print();
 
             int selectedIngredientIndex = scanner.nextInt();
+            scanner.nextLine();
             if (selectedIngredientIndex >= 0 && selectedIngredientIndex < ingredientManager.storageSize()) {
                 pizzaIngredients.add(ingredientManager.storageGet(selectedIngredientIndex));
             } else if (selectedIngredientIndex == -1) {
@@ -113,6 +115,7 @@ public class PizzaManager extends Manager<Pizza> {
         System.out.println("Выберите пиццу\nЧтобы вернутся введите -1");
         this.print();
         selectedPizza = scanner.nextInt();
+        scanner.nextLine();
         if(selectedPizza>=0 && selectedPizza<storage.size()){
             return selectedPizza;
         }
@@ -133,7 +136,8 @@ public class PizzaManager extends Manager<Pizza> {
         int selectedAction;
         System.out.println("Изменить название - 1\nИзменить основу - 2\nИзменить ингедиенты - 3\nИзменить бортик - 4\nЧтобы вернутся введите -1");
         selectedAction = scanner.nextInt();
-        if(selectedAction != 1 && selectedAction != 2 &&selectedAction != 3){
+        scanner.nextLine();
+        if(selectedAction != 1 && selectedAction != 2 && selectedAction != 3 && selectedAction != 4){
             return -1;
         }
         else return selectedAction;
@@ -152,6 +156,7 @@ public class PizzaManager extends Manager<Pizza> {
         System.out.println("Выберите новую основу");
         baseManager.print();
         selectedBase = scanner.nextInt();
+        scanner.nextLine();
         if(selectedBase>=0 && selectedBase<baseManager.storageSize()){
             storage.get(pizzaId).base = baseManager.storageGet(selectedBase);
         }
@@ -166,6 +171,7 @@ public class PizzaManager extends Manager<Pizza> {
         while (dialogState){
             System.out.println("Добавить - 1\nУдалить - 2\nДля выода введите -1");
             command = scanner.nextInt();
+            scanner.nextLine();
             if(command == 1){
                 addIngredientToPizza(pizzaId);
             }
@@ -188,6 +194,7 @@ public class PizzaManager extends Manager<Pizza> {
             System.out.println("Введи номер ингредиента\nДля выхода введите -1");
             ingredientManager.print();
             selectedIngredient = scanner.nextInt();
+            scanner.nextLine();
             if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
                 storage.get(pizzaId).ingredients.add(ingredientManager.storageGet(selectedIngredient));
             }
@@ -204,6 +211,7 @@ public class PizzaManager extends Manager<Pizza> {
             System.out.println("Введи номер ингредиента\nДля выхода введите -1");
             ingredientManager.print();
             selectedIngredient = scanner.nextInt();
+            scanner.nextLine();
             if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
                 storage.get(pizzaId).ingredients.remove(selectedIngredient);
             }
@@ -234,6 +242,7 @@ public class PizzaManager extends Manager<Pizza> {
             sideManager.print();
 
             int selectedSideIndex = scanner.nextInt();
+            scanner.nextLine();
             if (selectedSideIndex >= 0 && selectedSideIndex < sideManager.storageSize()) {
                 selectedSide = sideManager.storageGet(selectedSideIndex);
                 sideDialog = false;
@@ -248,10 +257,11 @@ public class PizzaManager extends Manager<Pizza> {
 
     private void changePizzaSide(int pizzaId){
         int selectedSide;
-        System.out.println("Выберите новую основу");
+        System.out.println("Выберите новый бортик");
         sideManager.print();
         selectedSide = scanner.nextInt();
-        if(selectedSide>=0 && selectedSide<baseManager.storageSize()){
+        scanner.nextLine();
+        if(selectedSide>=0 && selectedSide<sideManager.storageSize()){
             if(sideManager.storageGet(selectedSide).notAllowedPizzas.contains(storage.get(pizzaId))){
                 System.out.println("Пицца запрещена");
             }

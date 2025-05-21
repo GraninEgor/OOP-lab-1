@@ -15,6 +15,7 @@ public class PizzaSystem {
         while(true){
             System.out.println("Создать - 1\nРедактировать - 2\nУдалить -3\nВывести - 4");
             command = scanner.nextInt();
+            scanner.nextLine();
             switch (command){
                 case 1:
                     selectedManager = selectManager();
@@ -51,6 +52,7 @@ public class PizzaSystem {
         int selectedItemCommand;
         System.out.println("Пиццу - 1\nОснову - 2\nИнгредиент - 3\nБортик - 4\nЧтобы вернутся нажмите 0");
         selectedItemCommand = scanner.nextInt();
+        scanner.nextLine();
         switch (selectedItemCommand){
             case 1:
                 manager = pizzaManager;
