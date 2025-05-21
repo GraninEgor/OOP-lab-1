@@ -209,10 +209,12 @@ public class PizzaManager extends Manager<Pizza> {
         boolean dialogState = true;
         while (dialogState){
             System.out.println("Введи номер ингредиента\nДля выхода введите -1");
-            ingredientManager.print();
+            for (int i = 0; i < storage.get(pizzaId).ingredients.size(); i++) {
+                System.out.println(i + " - " + storage.get(pizzaId).getName() + " - " + storage.get(pizzaId).getPrice());
+            }
             selectedIngredient = scanner.nextInt();
             scanner.nextLine();
-            if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
+            if(selectedIngredient>=0 && selectedIngredient<storage.get(pizzaId).ingredients.size()){
                 storage.get(pizzaId).ingredients.remove(selectedIngredient);
             }
             else{

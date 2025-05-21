@@ -190,7 +190,7 @@ public class SideManager extends Manager<Side>{
             }
         }
     }
-    private void addIngredientToSide(int pizzaId){
+    private void addIngredientToSide(int sideId){
         int selectedIngredient;
         boolean dialogState = true;
         while (dialogState){
@@ -199,7 +199,7 @@ public class SideManager extends Manager<Side>{
             selectedIngredient = scanner.nextInt();
             scanner.nextLine();
             if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
-                storage.get(pizzaId).ingredients.add(ingredientManager.storageGet(selectedIngredient));
+                storage.get(sideId).ingredients.add(ingredientManager.storageGet(selectedIngredient));
             }
             else{
                 dialogState = false;
@@ -207,16 +207,18 @@ public class SideManager extends Manager<Side>{
         }
     }
 
-    private void deleteIngredientFromSide(int pizzaId){
+    private void deleteIngredientFromSide(int sideId){
         int selectedIngredient;
         boolean dialogState = true;
         while (dialogState){
             System.out.println("Введи номер ингредиента\nДля выхода введите -1");
-            ingredientManager.print();
+            for (int i = 0; i < storage.get(sideId).ingredients.size(); i++) {
+                System.out.println(i + " - " + storage.get(sideId).getName() + " - " + storage.get(sideId).getPrice());
+            }
             selectedIngredient = scanner.nextInt();
             scanner.nextLine();
-            if(selectedIngredient>=0 && selectedIngredient<ingredientManager.storageSize()){
-                storage.get(pizzaId).ingredients.remove(selectedIngredient);
+            if(selectedIngredient>=0 && selectedIngredient<storage.get(sideId).ingredients.size()){
+                storage.get(sideId).ingredients.remove(selectedIngredient);
             }
             else{
                 dialogState = false;
