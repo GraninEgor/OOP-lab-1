@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class OrderManager  extends Manager{
+public class OrderManager  extends Manager<Order>{
 
     BaseManager baseManager;
     IngredientManager ingredientManager;
@@ -31,9 +31,7 @@ public class OrderManager  extends Manager{
         else if(selectedAction == 3){
             createCombinedPizzaToOrder(order);
         }
-        else{
-            return;
-        }
+        storage.add(order);
     }
 
     private void addPizzasToOrder(Order order){
@@ -45,6 +43,7 @@ public class OrderManager  extends Manager{
             System.out.println("Выбери пиццу для добаления\nЧтобы выйти введите -1");
             pizzaManager.print();
             selectedPizza = scanner.nextInt();
+            scanner.nextLine();
             if(selectedPizza == -1){
                 dialogState = false;
             }
@@ -61,11 +60,11 @@ public class OrderManager  extends Manager{
                     order.pizzas.add(pizza);
                 }
                 else{
-                    System.out.println("Некорректный ввод");
+                    dialogState = false;
                 }
             }
             else{
-                System.out.println("Некорректный ввод");
+                dialogState = false;
             }
         }
     }
@@ -76,10 +75,45 @@ public class OrderManager  extends Manager{
     }
 
     private void createCombinedPizzaToOrder(Order order){
+        Pizza halfA;
+        Pizza halfB;
+        int selected;
+        System.out.println("Выберите первую половину:\nЧтобы выйти введите -1");
+        pizzaManager.print();
+        selected = scanner.nextInt();
+        if(selected>=0 && selected<pizzaManager.storageSize()){
+            halfA = pizzaManager.storageGet(selected);
+        }
+        else{
+            return;
+        }
+        System.out.println("Выберите вторую половину:\nЧтобы выйти введите -1");
+        pizzaManager.print();
+        selected = scanner.nextInt();
+        if(selected>=0 && selected<pizzaManager.storageSize()){
+            halfB = pizzaManager.storageGet(selected);
+        }
+        else{
+            return;
+        }
+        String name = halfA.getName() + " + " + halfB.getName();
+        int price = halfA.getPrice()/2 + halfB.getPrice()/2;
+        Base selectedBase = selectBaseFromUser();
+        if (selectedBase == null) return;
+        int selectAction;
+        ArrayList<Ingredient> ingredients = new ArrayList<>(halfA.ingredients);
+        ingredients.addAll(halfB.ingredients);
+        System.out.println("Оставить разные бортики?\nНет - 0\nДа - 1");
+        selectAction = scanner.nextInt();
+        if(selectAction == 0){
+            Side selectedSide = selectSideFromUser();
+            order.pizzas.add(new Pizza(name,price,selectedBase,ingredients,selectedSide));
+        }
+        else if( selectAction == 1){
+            order.pizzas.add(new Pizza(name,price,selectedBase,ingredients,halfA,halfB,halfA.side,halfB.side));
+        }
 
     }
-
-
 
     private String getComment(){
         System.out.println("Введите комментарий к заказу");
@@ -137,7 +171,6 @@ public class OrderManager  extends Manager{
     }
 
     private ArrayList<Ingredient> selectIngredientsFromUser() {
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Ingredient> pizzaIngredients = new ArrayList<>();
         boolean ingredientDialog = true;
 

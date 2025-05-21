@@ -66,6 +66,9 @@ public class PizzaSystem {
                 break;
             case 4:
                 manager = sideManager;
+                break;
+            case 5:
+                manager = orderManager;
             default:
                 break;
         }

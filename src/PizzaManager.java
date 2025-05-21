@@ -63,7 +63,6 @@ public class PizzaManager extends Manager<Pizza> {
     }
 
     private ArrayList<Ingredient> selectIngredientsFromUser() {
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Ingredient> pizzaIngredients = new ArrayList<>();
         boolean ingredientDialog = true;
 
