@@ -22,4 +22,5 @@ public abstract class Component {
         this.name = name;
         this.price = price;
     }
+
 }

@@ -42,8 +42,16 @@ public class OrderManager  extends Manager<Order>{
                 dialogState = false;
             }
         }
-        order.setPrice(countPrice(order.pizzas));
-        storage.add(order);
+        int isDeferred;
+        System.out.println("Сделать отложенным?\nНет - 0\nДа - 1");
+        isDeferred = scanner.nextInt();
+        scanner.nextLine();
+        if (isDeferred == 1){
+            LocalDate userDate = getValidatedDateFromUser();
+            LocalTime userTime = getValidatedTimeFromUser();
+            order.setDate(userDate);
+            order.setTime(userTime);
+        }
     }
 
     private void addPizzasToOrder(Order order){
@@ -247,7 +255,7 @@ public class OrderManager  extends Manager<Order>{
         return price;
     }
 
-    public static LocalDate getValidatedDateFromUser(Scanner scanner) {
+    public LocalDate getValidatedDateFromUser() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         while (true) {
             System.out.println("Введите дату в формате yyyy-MM-dd:");
@@ -260,7 +268,7 @@ public class OrderManager  extends Manager<Order>{
         }
     }
 
-    public static LocalTime getValidatedTimeFromUser(Scanner scanner) {
+    public LocalTime getValidatedTimeFromUser() {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         while (true) {
             System.out.println("Введите время в формате HH:mm:");
