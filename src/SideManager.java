@@ -164,6 +164,7 @@ public class SideManager extends Manager<Side>{
     private void changeSideName(int sideId){
         String newName;
         System.out.println("Введите новое название:");
+        scanner.nextLine();
         newName = scanner.nextLine();
         scanner.nextLine();
         storage.get(sideId).setName(newName);

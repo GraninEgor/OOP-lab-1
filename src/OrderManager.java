@@ -74,8 +74,7 @@ public class OrderManager  extends Manager<Order>{
             }
 
             if(selectedPizza >= 0 && selectedPizza < pizzaManager.storageSize()){
-                pizza = pizzaManager.storageGet(selectedPizza);
-
+                pizza = new Pizza(pizzaManager.storageGet(selectedPizza)); // ← копия
                 Size selectedSize = selectSizeFromUser();
                 pizza.setSize(selectedSize);
 
@@ -94,8 +93,8 @@ public class OrderManager  extends Manager<Order>{
                             new ArrayList<>(pizza.ingredients),
                             pizza.side
                     );
-                    doubledPizza.doubleIngredients(); // удваиваем ингредиенты
-                    doubledPizza.setSize(selectedSize); // сохраняем тот же размер
+                    doubledPizza.doubleIngredients();
+                    doubledPizza.setSize(selectedSize);
                     order.pizzas.add(doubledPizza);
                 }
                 else{
@@ -124,7 +123,7 @@ public class OrderManager  extends Manager<Order>{
         pizzaManager.print();
         selected = scanner.nextInt();
         if(selected>=0 && selected<pizzaManager.storageSize()){
-            halfA = pizzaManager.storageGet(selected);
+            halfA = new Pizza(pizzaManager.storageGet(selected));
         }
         else{
             return;
@@ -133,7 +132,7 @@ public class OrderManager  extends Manager<Order>{
         pizzaManager.print();
         selected = scanner.nextInt();
         if(selected>=0 && selected<pizzaManager.storageSize()){
-            halfB = pizzaManager.storageGet(selected);
+            halfB = new Pizza(pizzaManager.storageGet(selected));
         }
         else{
             return;
@@ -265,7 +264,7 @@ public class OrderManager  extends Manager<Order>{
         for(Order order: storage){
             System.out.println(order.getName() + " " + order.getPrice() + " " + order.date + " " + order.time);
             for(Pizza pizza: order.pizzas){
-                System.out.println("   " + pizza.getName());
+                System.out.println("   " + pizza.getName() + " - " + pizza.getPrice());
             }
         }
 

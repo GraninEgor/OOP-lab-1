@@ -60,4 +60,13 @@ public class Pizza extends Component {
         ingredients.addAll(new ArrayList<>(ingredients));
         this.setPrice(calculatePrice());
     }
+
+    public Pizza(Pizza other) {
+        this(other.getName(), other.getPrice(), other.base, new ArrayList<>(other.ingredients), other.side);
+        this.size = other.size;
+        this.halfA = other.halfA;
+        this.halfB = other.halfB;
+        this.halfASide = other.halfASide;
+        this.halfBSide = other.halfBSide;
+    }
 }
