@@ -349,7 +349,7 @@ public class OrderManager  extends Manager<Order>{
                 }
             }
         } else {
-            super.filter(); // базовая фильтрация
+            super.filter();
         }
     }
 }

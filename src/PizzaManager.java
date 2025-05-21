@@ -289,7 +289,6 @@ public class PizzaManager extends Manager<Pizza> {
             System.out.println("Введите номер ингредиента для фильтрации:");
             int ingredientIndex = scanner.nextInt();
             scanner.nextLine();
-
             if (ingredientIndex >= 0 && ingredientIndex < ingredientManager.storageSize()) {
                 Ingredient selectedIngredient = ingredientManager.storageGet(ingredientIndex);
                 for (Pizza pizza : storage) {
