@@ -13,4 +13,8 @@ public class Pizza extends Component{
         this.ingredients = ingredients;
         this.side = side;
     }
+
+    public void doubleIngredients(){
+        ingredients.addAll(ingredients);
+    }
 }
